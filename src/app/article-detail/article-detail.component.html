@@ -1,0 +1,34 @@
+<div *ngIf="article == null" class="loading">
+    <span>请求数据中</span>
+</div>
+<div *ngIf="article != null" class="content">
+    <div class="header">
+        <h1>{{article.title}}</h1>
+        <span class="tag">{{article.tags}} | </span>
+        <span class="tag">{{article.createTime}}</span>
+    </div>
+    <div class="aticle-content">
+        <div [innerHTML]="article.content | marked"></div>
+    </div>
+    <div class="article-comment">
+        <textarea placeholder="输入想说的" [(ngModel)]="comment.content"></textarea>
+        <input type="text" placeholder="昵称" [(ngModel)]="comment.nickname" />
+        <input type="text" placeholder="邮箱" [(ngModel)]="comment.email" /><br />
+        <button type="button" (click)="submitComment()">提交</button>
+    </div>
+    <div *ngIf="commentpage != null">
+        <div class="comment-list" *ngFor="let comment of commentpage.data">
+            <div class="comment-list-title">
+                <span class="nick">{{comment.nickname}}</span><span class="comment-date">{{comment.createTime}}</span>
+            </div>
+            <div class="comment-list-content">
+                {{comment.content}}
+            </div>
+        </div>
+        <div *ngIf="commentpage.total > 0" class="pageable">
+            <span class="pageshow">{{commentpage.pageNo}}-{{commentpage.pageTotal}}/{{commentpage.total}}</span>
+            <button *ngIf="commentpage.pageNo > 1" (click)="pageUp()">上一页</button>
+            <button *ngIf="commentpage.pageNo < commentpage.pageTotal" (click)="pageDown()">下一页</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,205 @@
+body {
+  background-color: whitesmoke;
+  color: #2c3e50;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+img {
+  max-width: 100%;
+}
+
+p > code {
+  color: #476582;
+  background-color: rgba(27, 31, 35, 0.05);
+}
+
+p > a {
+  color: #1565c0;
+}
+
+p > a:hover {
+  text-decoration: underline;
+}
+
+pre,
+code {
+  overflow: auto;
+  word-wrap: break-word;
+}
+
+blockquote {
+  margin-left: 1rem;
+  border-left: 2px solid green;
+  padding-left: 0.5rem;
+  background-color: gainsboro;
+}
+
+input {
+  outline-style: none;
+  border: 1px solid gray;
+  height: 2rem;
+  width: 20rem;
+}
+
+textarea {
+  width: 100%;
+  height: 5rem;
+  box-sizing: border-box;
+  resize: none;
+}
+
+button {
+  height: 2rem;
+  width: 5rem;
+}
+
+// pc
+@media screen and (min-width: 768px) {
+  .content {
+    margin: 0 auto;
+    max-width: 768px;
+  }
+
+  .full-content {
+    margin: 0 auto;
+    max-width: 100%;
+  }
+}
+
+// mobile
+@media screen and (max-width: 768px) {
+  .content {
+    margin: 0 auto;
+    max-width: 100%;
+  }
+
+  .full-content {
+    margin: 0 auto;
+    max-width: 100%;
+  }
+  
+  input {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+.pageable {
+  text-align: right;
+  margin-top: 10px;
+}
+
+.pageshow {
+  font-size: 0.8rem;
+  margin-right: 10px;
+}
+
+.loading {
+  text-align: center;
+}
+
+.tag {
+  color: gray;
+}
+
+input {
+  outline-style: none;
+  border: 1px solid gray;
+  height: 2rem;
+  width: 20rem;
+}
+
+textarea {
+  width: 100%;
+  height: 5rem;
+  box-sizing: border-box;
+  resize: none;
+}
+
+button {
+  height: 2rem;
+  width: 5rem;
+  border: 1px solid rgb(227, 227, 227);
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+table {
+  width: 100%;
+  color: whitesmoke;
+}
+
+tr {
+  height: 2rem;
+  text-align: center;
+}
+
+tr th {
+  background-color: #232f34;
+}
+
+tr:nth-child(even) {
+  background-color: #4a6572;
+}
+
+tr:nth-child(odd) {
+  background-color: #f9aa33;
+}
+
+select {
+  height: 2rem;
+  width: 5rem;
+}
+
+.pageable {
+  text-align: right;
+  margin-top: 10px;
+}
+
+.pageshow {
+  font-size: 0.8rem;
+  margin-right: 10px;
+}
+
+.loading {
+  text-align: center;
+}
+
+.primary {
+  background-color: #66cccc;
+  color: white;
+}
+
+.info {
+  background-color: #fedbd0;
+  color: black;
+}
+
+.danger {
+  background-color: #442c2e;
+  color: white;
+}
+
+.edit-frame {
+  text-align: center;
+  background-color: #fff;
+  border-radius: 20px;
+  width: 768px;
+  height: 100px;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px;
+  border: 1px solid gray;
+}

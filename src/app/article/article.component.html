@@ -1,0 +1,20 @@
+<div *ngIf="articleDate == null" class="loading">
+    <span>请求数据中</span>
+  </div>
+  <div *ngIf="articleDate != null" class="content">
+    <div *ngFor="let article of articleDate.data" class="article-item">
+      <h2><a routerLink="/article/{{article.id}}">{{article.title}}</a></h2>
+      <h5>{{article.subtitle}}</h5>
+      <div class="bottom">
+        <span class="tag">{{article.categoryName}} | </span>
+        <span class="tag">{{article.updateTime}}</span>
+      </div>
+    </div>
+  
+    <div *ngIf="articleDate.total > 0" class="pageable">
+      <span class="pageshow">{{articleDate.pageNo}}-{{articleDate.pageTotal}}/{{articleDate.total}}</span>
+      <button *ngIf="articleDate.pageNo > 1" (click)="pageUp()">上一页</button>
+      <button *ngIf="articleDate.pageNo < articleDate.pageTotal" (click)="pageDown()">下一页</button>
+    </div>
+  </div>
+  

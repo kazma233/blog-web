@@ -1,0 +1,12 @@
+<div class="content">
+    <div *ngFor="let key of keys()">
+        <h2>{{key}}</h2>
+
+        <ul>
+            <li *ngFor="let archive of textArchive[key]"><a routerLink="/article/{{archive.id}}">{{archive.title}}</a>
+                <span class="readnum">{{archive.readNum}}</span>
+            </li>
+        </ul>
+    </div>
+
+</div>

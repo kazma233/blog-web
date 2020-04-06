@@ -1,0 +1,103 @@
+<div class="loading" *ngIf="articlePage.data == null">
+    加载中
+</div>
+
+<div *ngIf="articlePage.data != null" class="full-content">
+
+    <div class="search">
+        <input placeholder="文章标题" [(ngModel)]="articleQuery.title" />
+        <select [(ngModel)]="articleQuery.articleState">
+            <option value="">空</option>
+            <option value="ENABLE">发布</option>
+            <option value="DISABLE">未发布</option>
+        </select>
+        <br />
+        <input type="text" [(ngModel)]="articleQuery.year" placeholder="查询的年份">
+        <select [(ngModel)]="articleQuery.categoryId">
+            <option value="">空</option>
+            <option *ngFor="let category of categorys" value="{{category.id}}">{{category.categoryName}}</option>
+        </select>
+        <br />
+        <button (click)="getArticles()">搜索</button>
+    </div>
+    <div class="add">
+        <button (click)="showAddPop()">新增</button>
+    </div>
+
+    <table>
+        <tr>
+            <th>标题</th>
+            <th>tags</th>
+            <th>分类</th>
+            <th>状态</th>
+            <th>发布时间</th>
+            <th>操作</th>
+        </tr>
+        <tr *ngFor="let article of articlePage.data">
+            <td>{{article.title}}</td>
+            <td>{{article.tags}}</td>
+            <td>{{article.categoryName}}</td>
+            <td>{{article.state}}</td>
+            <td>{{article.createTime}}</td>
+            <td>
+                <button class="danger" (click)="deleteArticle(article.id)">删除</button>
+                <button class="primary" (click)="showUpdate(article.id)">编辑</button>
+            </td>
+        </tr>
+    </table>
+
+    <div *ngIf="articlePage.total > 0" class="pageable">
+        <span class="pageshow">{{articlePage.pageNo}}-{{articlePage.pageTotal}}/{{articlePage.total}}</span>
+        <button *ngIf="articlePage.pageNo > 1" (click)="pageUp()">上一页</button>
+        <button *ngIf="articlePage.pageNo < articlePage.pageTotal" (click)="pageDown()">下一页</button>
+    </div>
+
+    <div *ngIf="newArticle != null" class="edit-frame">
+        <input type="text" placeholder="标题" [(ngModel)]="newArticle.title" />
+        <br />
+        <input type="text" placeholder="副标题" [(ngModel)]="newArticle.subtitle" />
+        <br />
+        <span>分类: </span> <select [(ngModel)]="newArticle.categoryId" [(ngModel)]="newArticle.categoryId">
+            <option value="">空</option>
+            <option *ngFor="let category of categorys" value="{{category.id}}">{{category.categoryName}}</option>
+        </select>
+        <br />
+        <input type="text" placeholder="标签" [(ngModel)]="newArticle.tags" />
+        <br />
+        <span>发布状态: </span><select [(ngModel)]="newArticle.state">
+            <option value="ENABLE">发布</option>
+            <option value="DISABLE">不发布</option>
+        </select>
+        <br />
+        <textarea placeholder="文章内容" [(ngModel)]="newArticle.content"></textarea>
+        <br />
+        <button class="info" (click)="newArticle = null">取消</button>
+        <button class="primary" (click)="addArticle()">新增</button>
+    </div>
+
+    <div *ngIf="updateArticleEntity != null" class="edit-frame">
+        <input type="text" placeholder="标题" [(ngModel)]="updateArticleEntity.title" />
+        <br />
+        <input type="text" placeholder="副标题" [(ngModel)]="updateArticleEntity.subtitle" />
+        <br />
+        <span>分类: </span>
+        <select [(ngModel)]="updateArticleEntity.categoryId">
+            <option value="">空</option>
+            <option *ngFor="let category of categorys" value="{{category.id}}">{{category.categoryName}}</option>
+        </select>
+        <br />
+        <input type="text" placeholder="标签" [(ngModel)]="updateArticleEntity.tags" />
+        <br />
+        <span>发布状态: </span>
+        <select [(ngModel)]="updateArticleEntity.state">
+            <option value="ENABLE">发布</option>
+            <option value="DISABLE">不发布</option>
+        </select>
+        <br />
+        <textarea placeholder="文章内容" [(ngModel)]="updateArticleEntity.content"></textarea>
+        <br />
+        <button class="info" (click)="updateArticleEntity = null">取消</button>
+        <button class="primary" (click)="updateArticle()">更新</button>
+    </div>
+
+</div>
