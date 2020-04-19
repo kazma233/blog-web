@@ -61,11 +61,12 @@
     text-shadow: #FC0 1px 0 10px;
   }
   
-  .info {
-    text-align: right;
+  .img-info {
+    display: inline;
+    float: right;
   }
   
-  .info a {
+  .img-info a {
     color: white;
   }
   
