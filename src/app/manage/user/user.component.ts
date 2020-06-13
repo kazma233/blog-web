@@ -25,7 +25,7 @@ export class UserComponent implements OnInit {
       headers: Tool.getDefaultHeaders(),
     }).subscribe(result => {
       if (result.success) {
-        localStorage.setItem(Tool.AUTH_NAME, result.result);
+        localStorage.setItem(Tool.AUTH_NAME, result.data);
         this.route.navigateByUrl("/manage");
       }
     }, err => {

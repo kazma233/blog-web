@@ -1,29 +1,26 @@
-<div class="loading" *ngIf="articlePage.data == null">
+<div class="search">
+    <input placeholder="id" [(ngModel)]="articleQuery.id" />
+    <input placeholder="文章标题" [(ngModel)]="articleQuery.title" />
+    <select [(ngModel)]="articleQuery.status">
+        <option value="SHOW">发布</option>
+        <option value="HIDDEN">未发布</option>
+    </select>
+    <br />
+    <input type="text" [(ngModel)]="articleQuery.category" placeholder="分类">
+    <input type="text" [(ngModel)]="articleQuery.tags" placeholder="标签">
+    <br />
+    <button (click)="getArticles()">搜索</button>
+</div>
+
+<div class="add">
+    <button (click)="showAddPop()">新增</button>
+</div>
+
+<div class="loading" *ngIf="articlePage.list == null">
     加载中
 </div>
 
-<div *ngIf="articlePage.data != null" class="full-content">
-
-    <div class="search">
-        <input placeholder="文章标题" [(ngModel)]="articleQuery.title" />
-        <select [(ngModel)]="articleQuery.articleState">
-            <option value="">空</option>
-            <option value="ENABLE">发布</option>
-            <option value="DISABLE">未发布</option>
-        </select>
-        <br />
-        <input type="text" [(ngModel)]="articleQuery.year" placeholder="查询的年份">
-        <select [(ngModel)]="articleQuery.categoryId">
-            <option value="">空</option>
-            <option *ngFor="let category of categorys" value="{{category.id}}">{{category.categoryName}}</option>
-        </select>
-        <br />
-        <button (click)="getArticles()">搜索</button>
-    </div>
-    <div class="add">
-        <button (click)="showAddPop()">新增</button>
-    </div>
-
+<div *ngIf="articlePage.list != null" class="full-content">
     <table>
         <tr>
             <th>标题</th>
@@ -31,16 +28,17 @@
             <th>分类</th>
             <th>状态</th>
             <th>发布时间</th>
+            <th>阅读量</th>
             <th>操作</th>
         </tr>
-        <tr *ngFor="let article of articlePage.data">
+        <tr *ngFor="let article of articlePage.list">
             <td>{{article.title}}</td>
             <td>{{article.tags}}</td>
-            <td>{{article.categoryName}}</td>
-            <td>{{article.state}}</td>
-            <td>{{article.createTime}}</td>
+            <td>{{article.category}}</td>
+            <td>{{article.status}}</td>
+            <td>{{article.latestTime}}</td>
+            <td>{{article.visit}}</td>
             <td>
-                <button class="danger" (click)="deleteArticle(article.id)">删除</button>
                 <button class="primary" (click)="showUpdate(article.id)">编辑</button>
             </td>
         </tr>
@@ -55,18 +53,15 @@
     <div *ngIf="newArticle != null" class="edit-frame">
         <input type="text" placeholder="标题" [(ngModel)]="newArticle.title" />
         <br />
-        <input type="text" placeholder="副标题" [(ngModel)]="newArticle.subtitle" />
+        <input type="text" placeholder="副标题" [(ngModel)]="newArticle.subTitle" />
         <br />
-        <span>分类: </span> <select [(ngModel)]="newArticle.categoryId" [(ngModel)]="newArticle.categoryId">
-            <option value="">空</option>
-            <option *ngFor="let category of categorys" value="{{category.id}}">{{category.categoryName}}</option>
-        </select>
+        <input type="text" placeholder="分类" [(ngModel)]="newArticle.category">
         <br />
         <input type="text" placeholder="标签" [(ngModel)]="newArticle.tags" />
         <br />
-        <span>发布状态: </span><select [(ngModel)]="newArticle.state">
-            <option value="ENABLE">发布</option>
-            <option value="DISABLE">不发布</option>
+        <span>发布状态: </span><select [(ngModel)]="newArticle.status">
+            <option value="SHOW">发布</option>
+            <option value="HIDDEN">不发布</option>
         </select>
         <br />
         <textarea placeholder="文章内容" [(ngModel)]="newArticle.content"></textarea>
@@ -78,20 +73,16 @@
     <div *ngIf="updateArticleEntity != null" class="edit-frame">
         <input type="text" placeholder="标题" [(ngModel)]="updateArticleEntity.title" />
         <br />
-        <input type="text" placeholder="副标题" [(ngModel)]="updateArticleEntity.subtitle" />
+        <input type="text" placeholder="副标题" [(ngModel)]="updateArticleEntity.subTitle" />
         <br />
-        <span>分类: </span>
-        <select [(ngModel)]="updateArticleEntity.categoryId">
-            <option value="">空</option>
-            <option *ngFor="let category of categorys" value="{{category.id}}">{{category.categoryName}}</option>
-        </select>
+        <input type="text" placeholder="分类" [(ngModel)]="updateArticleEntity.category" />
         <br />
         <input type="text" placeholder="标签" [(ngModel)]="updateArticleEntity.tags" />
         <br />
         <span>发布状态: </span>
-        <select [(ngModel)]="updateArticleEntity.state">
-            <option value="ENABLE">发布</option>
-            <option value="DISABLE">不发布</option>
+        <select [(ngModel)]="updateArticleEntity.status">
+            <option value="SHOW">发布</option>
+            <option value="HIDDEN">不发布</option>
         </select>
         <br />
         <textarea placeholder="文章内容" [(ngModel)]="updateArticleEntity.content"></textarea>

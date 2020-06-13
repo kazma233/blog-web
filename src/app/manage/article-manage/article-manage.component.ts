@@ -6,6 +6,7 @@ import { ArticleQuery } from 'src/entity/manage/query/articly.query';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Result } from 'src/entity/common/result';
+import { ArticleUpdate } from 'src/entity/article-update';
 import { Tool } from 'src/tool/tool';
 
 @Component({
@@ -22,35 +23,24 @@ export class ArticleManageComponent implements OnInit {
 
   newArticle: Article = null;
 
-  updateArticleEntity: Article = null;
+  updateArticleEntity: ArticleUpdate = null;
 
   constructor(private httpClient: HttpClient) { }
 
   ngOnInit() {
     this.articleQuery.pageNo = 1;
     this.getArticles();
-    this.getAllCategory();
   }
 
   getArticles() {
-    this.httpClient.get<Result<Page<Article>>>(environment.baseURL + '/manages/articles', {
+    this.httpClient.get<Result<Page<Article>>>(environment.baseURL + '/manage/articles', {
       headers: Tool.getDefaultHeaders(),
       params: this.articleQuery.toHttpParams()
     }).subscribe(result => {
-      this.articlePage = result.result;
+      this.articlePage = result.data;
     }, err => {
       console.log(err);
     });
-  }
-
-  getAllCategory() {
-    this.httpClient.get<Result<Array<Category>>>(environment.baseURL + "/manages/categories", {
-      headers: Tool.getDefaultHeaders(),
-    }).subscribe(result => {
-      this.categorys = result.result;
-    }, err => {
-      console.log(err);
-    })
   }
 
   showAddPop() {
@@ -58,7 +48,7 @@ export class ArticleManageComponent implements OnInit {
   }
 
   addArticle() {
-    this.httpClient.post<Result<string>>(environment.baseURL + '/manages/articles', this.newArticle, {
+    this.httpClient.post<Result<string>>(environment.baseURL + '/manage/articles', this.newArticle, {
       headers: Tool.getDefaultHeaders(),
     }).subscribe(result => {
       this.getArticles();
@@ -73,14 +63,22 @@ export class ArticleManageComponent implements OnInit {
     this.httpClient.get<Result<Article>>(environment.baseURL + '/articles/' + id, {
       headers: Tool.getDefaultHeaders(),
     }).subscribe(result => {
-      this.updateArticleEntity = result.result;
+      let data = result.data;
+      this.updateArticleEntity = new ArticleUpdate();
+      this.updateArticleEntity.id = data.id;
+      this.updateArticleEntity.status = data.status;
+      this.updateArticleEntity.subTitle = data.subTitle;
+      this.updateArticleEntity.tags = data.tags.join(",");
+      this.updateArticleEntity.title = data.title;
+      this.updateArticleEntity.content = data.content;
+      this.updateArticleEntity.category = data.category;
     }, err => {
       console.log(err);
     });
   }
 
   updateArticle() {
-    this.httpClient.put<Result<string>>(environment.baseURL + '/manages/articles', this.updateArticleEntity, {
+    this.httpClient.put<Result<string>>(environment.baseURL + '/manage/articles', this.updateArticleEntity, {
       headers: Tool.getDefaultHeaders(),
     }).subscribe(result => {
       this.getArticles()
@@ -88,16 +86,6 @@ export class ArticleManageComponent implements OnInit {
       console.log(err);
     }, () => {
       this.updateArticleEntity = null;
-    });
-  }
-
-  deleteArticle(id: string) {
-    this.httpClient.delete<Result<string>>(environment.baseURL + '/manages/articles/' + id, {
-      headers: Tool.getDefaultHeaders(),
-    }).subscribe(result => {
-      this.getArticles();
-    }, err => {
-      console.log(err);
     });
   }
 

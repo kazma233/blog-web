@@ -31,7 +31,7 @@ export class ArticleComponent implements OnInit {
       withCredentials: true,
       params: this.articleQuery.toHttpParams()
     }).subscribe(result => {
-      this.articleDate = result.result;
+      this.articleDate = result.data;
     }, err => {
       console.log(err);
     });

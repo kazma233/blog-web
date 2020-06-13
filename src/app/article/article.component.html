@@ -2,12 +2,12 @@
     <span>请求数据中</span>
   </div>
   <div *ngIf="articleDate != null" class="content">
-    <div *ngFor="let article of articleDate.data" class="article-item">
+    <div *ngFor="let article of articleDate.list" class="article-item">
       <h2><a routerLink="/article/{{article.id}}">{{article.title}}</a></h2>
-      <h5>{{article.subtitle}}</h5>
+      <h5>{{article.subTitle}}</h5>
       <div class="bottom">
-        <span class="tag">{{article.categoryName}} | </span>
-        <span class="tag">{{article.updateTime}}</span>
+        <span class="tag">{{article.category}} | </span>
+        <span class="tag">{{article.latestTime}}</span>
       </div>
     </div>
   

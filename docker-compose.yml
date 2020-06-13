@@ -1,0 +1,11 @@
+version: '3.5'
+
+services: 
+  blog-web:
+    build: 
+      context: ./
+      dockerfile: Dockerfile
+    container_name: blog-web
+    ports: 
+      - 9900:80
+    restart: always

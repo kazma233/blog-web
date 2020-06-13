@@ -3,6 +3,7 @@ import { Archive } from 'src/entity/archive';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Result } from 'src/entity/common/result';
+import { ArchiveGroup } from 'src/entity/archive-group';
 
 @Component({
   selector: 'app-archive',
@@ -11,7 +12,7 @@ import { Result } from 'src/entity/common/result';
 })
 export class ArchiveComponent implements OnInit {
 
-  textArchive: Map<String, Array<Archive>> = null;
+  archiveGroups: ArchiveGroup = null;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -20,19 +21,13 @@ export class ArchiveComponent implements OnInit {
   }
 
   getArchive() {
-    this.httpClient.get<Result<Map<String, Array<Archive>>>>(environment.baseURL + '/articles/archive', {
+    this.httpClient.get<Result<ArchiveGroup>>(environment.baseURL + '/articles/group', {
       withCredentials: true,
     }).subscribe(result => {
-      this.textArchive = result.result;
+      this.archiveGroups = result.data;
     }, err => {
       console.log(err);
     });
   }
-
-  keys(): Array<String> {
-    if (this.textArchive != null) {
-      return Object.keys(this.textArchive);
-    }
-    return null;
-  }
+  
 }

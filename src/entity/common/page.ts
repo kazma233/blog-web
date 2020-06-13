@@ -1,5 +1,5 @@
 export class Page<T> {
-    data: Array<T>;
+    list: Array<T>;
     pageNo: number;
     pageSize: number;
     total: number;
