@@ -22,7 +22,7 @@
     "@angular/router": "~11.0.2",
     "@types/highlight.js": "^9.12.3",
     "@types/marked": "^0.7.3",
-    "highlight.js": "^9.18.1",
+    "highlight.js": "^10.4.1",
     "marked": "^0.8.1",
     "rxjs": "~6.5.4",
     "tslib": "^2.0.0",
